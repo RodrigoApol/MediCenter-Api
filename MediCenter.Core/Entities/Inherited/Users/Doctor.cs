@@ -1,4 +1,5 @@
 using MediCenter.Core.Entities.Base;
+using MediCenter.Core.Entities.Inherited.Services;
 using MediCenter.Core.Entities.ValueObjects;
 using MediCenter.Core.Enums;
 
@@ -21,10 +22,12 @@ public class Doctor : UserBase
     {
         Specialty = specialty;
         Crm = crm;
+        MedicalServices = new List<MedicalService>();
     }
 
     public string Specialty { get; private set; }
     public string Crm { get; private set; }
+    public List<MedicalService> MedicalServices { get; set; }
 
     public void UpdateUserData(string name, string surname, DateTime birthDate, string phone, string email, string cpf,
         BloodTypeEnum bloodType, string specialty, string crm)

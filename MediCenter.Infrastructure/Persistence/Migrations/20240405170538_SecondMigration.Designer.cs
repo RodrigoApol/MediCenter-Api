@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MediCenter.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(MediCenterDbContext))]
-    [Migration("20240328012337_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240405170538_SecondMigration")]
+    partial class SecondMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -295,19 +295,19 @@ namespace MediCenter.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("MediCenter.Core.Entities.Inherited.Services.MedicalService", b =>
                 {
                     b.HasOne("MediCenter.Core.Entities.Inherited.Doctor", "Doctor")
-                        .WithMany()
+                        .WithMany("MedicalServices")
                         .HasForeignKey("IdDoctor")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MediCenter.Core.Entities.Inherited.Patient", "Patient")
-                        .WithMany()
+                        .WithMany("MedicalServices")
                         .HasForeignKey("IdPatient")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MediCenter.Core.Entities.Inherited.Services.Service", "Service")
-                        .WithMany()
+                        .WithMany("MedicalServices")
                         .HasForeignKey("IdService")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -317,6 +317,21 @@ namespace MediCenter.Infrastructure.Persistence.Migrations
                     b.Navigation("Patient");
 
                     b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("MediCenter.Core.Entities.Inherited.Doctor", b =>
+                {
+                    b.Navigation("MedicalServices");
+                });
+
+            modelBuilder.Entity("MediCenter.Core.Entities.Inherited.Patient", b =>
+                {
+                    b.Navigation("MedicalServices");
+                });
+
+            modelBuilder.Entity("MediCenter.Core.Entities.Inherited.Services.Service", b =>
+                {
+                    b.Navigation("MedicalServices");
                 });
 #pragma warning restore 612, 618
         }

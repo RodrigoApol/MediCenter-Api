@@ -13,19 +13,19 @@ public class MedicalServiceConfiguration : IEntityTypeConfiguration<MedicalServi
 
         builder
             .HasOne(ms => ms.Doctor)
-            .WithMany()
+            .WithMany(d => d.MedicalServices)
             .HasForeignKey(ms => ms.IdDoctor)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder
             .HasOne(ms => ms.Patient)
-            .WithMany()
+            .WithMany(p => p.MedicalServices)
             .HasForeignKey(ms => ms.IdPatient)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder
             .HasOne(ms => ms.Service)
-            .WithMany()
+            .WithMany(s => s.MedicalServices)
             .HasForeignKey(ms => ms.IdService)
             .OnDelete(DeleteBehavior.Restrict);
 
