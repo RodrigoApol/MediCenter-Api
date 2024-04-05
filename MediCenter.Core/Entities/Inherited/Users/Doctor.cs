@@ -26,8 +26,11 @@ public class Doctor : UserBase
     public string Specialty { get; private set; }
     public string Crm { get; private set; }
 
-    public void UpdateDoctor(string name)
+    public void UpdateUserData(string name, string surname, DateTime birthDate, string phone, string email, string cpf,
+        BloodTypeEnum bloodType, string specialty, string crm)
     {
-        Name = name;
+        base.UpdateUserData(name, surname, birthDate, phone, email, cpf, bloodType);
+        Specialty = specialty;
+        Crm = crm;
     }
 }

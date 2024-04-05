@@ -12,8 +12,11 @@ public class DoctorProfile : Profile
         CreateMap<CreateDoctorCommand, Doctor>();
 
         CreateMap<Doctor, DoctorViewModel>()
-            .ForMember(e => e.BloodType, 
-                op 
-                    => op.MapFrom(d => d.BloodType.ToString()));
+            .ForMember(e => e.BloodType,
+                op
+                    => op.MapFrom(d => d.BloodType.ToString()))
+            .ForMember(e => e.BirthDate,
+                op
+                    => op.MapFrom(d => d.BirthDate.ToString("dd/MM/yyyy")));
     }
 }

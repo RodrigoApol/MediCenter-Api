@@ -14,15 +14,18 @@ public class ServiceConfiguration : IEntityTypeConfiguration<Service>
         builder
             .Property(s => s.Name)
             .HasMaxLength(50)
+            .HasColumnType("varchar(50)")
             .IsRequired();
 
         builder
             .Property(s => s.Description)
             .HasMaxLength(200)
+            .HasColumnType("varchar(200)")
             .IsRequired();
 
         builder
             .Property(s => s.Value)
+            .HasColumnType("numeric(10, 2)")
             .IsRequired();
 
         builder

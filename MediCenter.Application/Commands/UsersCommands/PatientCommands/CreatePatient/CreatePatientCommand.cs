@@ -2,7 +2,7 @@ using MediatR;
 using MediCenter.Core.Entities.ValueObjects;
 using MediCenter.Core.Enums;
 
-namespace MediCenter.Application.Commands.UsersCommands.Patient.CreatePatient;
+namespace MediCenter.Application.Commands.UsersCommands.PatientCommands.CreatePatient;
 
 public record CreatePatientCommand(
     string Name,

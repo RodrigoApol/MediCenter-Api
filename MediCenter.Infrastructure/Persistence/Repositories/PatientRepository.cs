@@ -13,10 +13,18 @@ public class PatientRepository : IPatientRepository
     {
         _dbContext = dbContext;
     }
-    
+
     public async Task<List<Patient>> GetAllAsync()
     {
-        return await _dbContext.Patients.ToListAsync();
+        return await _dbContext
+            .Patients
+            .OrderBy(p => p.Name)
+            .ToListAsync();
+    }
+
+    public async Task<Patient?> GetByIdAsync(Guid id)
+    {
+        return await _dbContext.Patients.SingleOrDefaultAsync(p => p.Id == id);
     }
 
     public async Task<Patient?> GetByCpfAsync(string cpf)
@@ -31,7 +39,7 @@ public class PatientRepository : IPatientRepository
 
     public async Task AddAsync(Patient patient)
     {
-        await _dbContext.AddAsync(patient);
+        await _dbContext.Patients.AddAsync(patient);
         await _dbContext.SaveChangesAsync();
     }
 

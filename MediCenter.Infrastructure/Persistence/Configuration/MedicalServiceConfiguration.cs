@@ -31,6 +31,7 @@ public class MedicalServiceConfiguration : IEntityTypeConfiguration<MedicalServi
 
         builder
             .Property(ms => ms.HealthInsurance)
-            .HasMaxLength(50);
+            .HasMaxLength(50)
+            .HasColumnType("varchar(50)");
     }
 }

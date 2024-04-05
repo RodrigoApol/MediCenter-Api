@@ -25,4 +25,12 @@ public class Patient : UserBase
     
     public double Weight { get; private set; }
     public double Height { get; private set; }
+
+    public void UpdateUserData(string name, string surname, DateTime birthDate, string phone, string email,
+        string cpf, BloodTypeEnum bloodType, double weight, double height)
+    {
+        base.UpdateUserData(name, surname, birthDate, phone, email, cpf, bloodType);
+        Weight = weight;
+        Height = height;
+    }
 }

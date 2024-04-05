@@ -26,7 +26,7 @@ public class DoctorRepository : IDoctorRepository
 
     public async Task AddAsync(Doctor doctor)
     {
-        await _dbContext.AddAsync(doctor);
+        await _dbContext.Doctors.AddAsync(doctor);
         await _dbContext.SaveChangesAsync();
     }
 

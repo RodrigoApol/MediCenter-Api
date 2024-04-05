@@ -4,6 +4,11 @@ namespace MediCenter.Core.Entities.Inherited.Services;
 
 public class MedicalService : ServicesBase
 {
+    protected MedicalService()
+    {
+        
+    }
+    
     public MedicalService(Guid idPatient, Guid idDoctor, Guid idService, string? healthInsurance, DateTime startedAt,
         DateTime finishAt, string medicalServiceType)
     {
@@ -26,4 +31,10 @@ public class MedicalService : ServicesBase
     public Patient Patient { get; private set; }
     public Doctor Doctor { get; private set; }
     public Service Service { get; private set; }
+
+    public void UpdateMedicalService(DateTime startedAt, DateTime finishAt)
+    {
+        StartedAt = startedAt;
+        FinishAt = finishAt;
+    }
 }

@@ -21,10 +21,11 @@ public abstract class UserBase
         Cpf = cpf;
         BloodType = bloodType;
         Address = address;
+        IsDeleted = false;
     }
 
     public Guid Id { get; init; }
-    public string Name { get; protected set; }
+    public string Name { get; private set; }
     public string Surname { get; private set; }
     public DateTime BirthDate { get; private set; }
     public string Phone { get; private set; }
@@ -32,6 +33,7 @@ public abstract class UserBase
     public string Cpf { get; private set; }
     public BloodTypeEnum BloodType { get; private set; }
     public Address Address { get; private set; }
+    public bool IsDeleted { get; private set; }
 
     protected void UpdateUserData(string name, string surname, DateTime birthDate, string phone, string email,
         string cpf, BloodTypeEnum bloodType)
@@ -45,8 +47,13 @@ public abstract class UserBase
         BloodType = bloodType;
     }
 
-    protected void UpdateAddress(Address address)
+    public void UpdateAddress(Address address)
     {
         Address = address;
+    }
+
+    public void DeleteUser()
+    {
+        IsDeleted = true;
     }
 }
