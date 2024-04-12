@@ -37,6 +37,12 @@ public class PatientRepository : IPatientRepository
         return await _dbContext.Patients.SingleOrDefaultAsync(p => p.Phone == phone);
     }
 
+    public async Task<Patient?> GetByEmailAndPasswordAsync(string email, string passwordHash)
+    {
+        return await _dbContext.Patients.SingleOrDefaultAsync(
+            p => p.Email == email && p.Password == passwordHash);
+    }
+
     public async Task AddAsync(Patient patient)
     {
         await _dbContext.Patients.AddAsync(patient);

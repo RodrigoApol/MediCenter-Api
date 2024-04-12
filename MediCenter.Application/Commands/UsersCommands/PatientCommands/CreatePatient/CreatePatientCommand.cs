@@ -10,6 +10,7 @@ public record CreatePatientCommand(
     DateTime BirthDate,
     string Phone,
     string Email,
+    string Password,
     string Cpf,
     BloodTypeEnum BloodType,
     Address Address,

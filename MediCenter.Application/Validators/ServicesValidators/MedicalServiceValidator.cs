@@ -8,17 +8,17 @@ public class MedicalServiceValidator : AbstractValidator<CreateMedicalServiceCom
 {
     public MedicalServiceValidator()
     {
-        RuleFor(ms => ms.ServiceId)
+        RuleFor(ms => ms.IdService)
             .NotEmpty()
             .NotNull()
             .WithMessage("IdService is required.");
         
-        RuleFor(ms => ms.DoctorId)
+        RuleFor(ms => ms.IdDoctor)
             .NotEmpty()
             .NotNull()
             .WithMessage("IdDoctor is required.");
         
-        RuleFor(ms => ms.PatientId)
+        RuleFor(ms => ms.IdPatient)
             .NotEmpty()
             .NotNull()
             .WithMessage("IdPatient is required.");

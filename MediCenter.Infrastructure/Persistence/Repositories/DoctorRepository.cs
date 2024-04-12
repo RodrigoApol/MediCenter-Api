@@ -24,6 +24,12 @@ public class DoctorRepository : IDoctorRepository
         return await _dbContext.Doctors.SingleOrDefaultAsync(d => d.Id == id);
     }
 
+    public async Task<Doctor?> GetByEmailAndPasswordAsync(string email, string passwordHash)
+    {
+        return await _dbContext.Doctors.SingleOrDefaultAsync(
+            d => d.Email == email && d.Password == passwordHash);
+    }
+
     public async Task AddAsync(Doctor doctor)
     {
         await _dbContext.Doctors.AddAsync(doctor);

@@ -14,11 +14,12 @@ public class Doctor : UserBase
         DateTime birthDate,
         string phone,
         string email,
+        string password,
         string cpf,
         BloodTypeEnum bloodType,
         Address address,
         string specialty,
-        string crm) : base(name, surname, birthDate, phone, email, cpf, bloodType, address)
+        string crm) : base(name, surname, birthDate, phone, email, password, cpf, bloodType, address)
     {
         Specialty = specialty;
         Crm = crm;

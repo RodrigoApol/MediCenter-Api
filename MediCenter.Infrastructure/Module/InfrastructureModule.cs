@@ -1,10 +1,13 @@
 using MediCenter.Core.Repositories.ServicesRepositories;
 using MediCenter.Core.Repositories.UsersRepositories;
+using MediCenter.Core.Services;
+using MediCenter.Infrastructure.Auth;
 using MediCenter.Infrastructure.Persistence.Context;
 using MediCenter.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace MediCenter.Infrastructure.Module;
 
@@ -14,7 +17,8 @@ public static class InfrastructureModule
     {
         service
             .AddContext(configuration)
-            .AddRepositories();
+            .AddRepositories()
+            .AddAuth();
         
         return service;
     }
@@ -35,6 +39,12 @@ public static class InfrastructureModule
         service.AddScoped<IServiceRepository, ServiceRepository>();
         service.AddScoped<IMedicalServiceRepository, MedicalServiceRepository>();
         
+        return service;
+    }
+    
+    private static IServiceCollection AddAuth(this IServiceCollection service)
+    {
+        service.AddScoped<IAuthService, AuthService>();
         return service;
     }
 }

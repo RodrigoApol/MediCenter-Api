@@ -1,5 +1,6 @@
 using MediCenter.Core.Entities.ValueObjects;
 using MediCenter.Core.Enums;
+using MediCenter.Core.Services;
 
 namespace MediCenter.Core.Entities.Base;
 
@@ -9,7 +10,7 @@ public abstract class UserBase
     {
     }
 
-    protected UserBase(string name, string surname, DateTime birthDate, string phone, string email, string cpf,
+    protected UserBase(string name, string surname, DateTime birthDate, string phone, string email, string password, string cpf,
         BloodTypeEnum bloodType, Address address)
     {
         Id = new Guid();
@@ -18,6 +19,7 @@ public abstract class UserBase
         BirthDate = birthDate;
         Phone = phone;
         Email = email;
+        Password = password;
         Cpf = cpf;
         BloodType = bloodType;
         Address = address;
@@ -30,6 +32,7 @@ public abstract class UserBase
     public DateTime BirthDate { get; private set; }
     public string Phone { get; private set; }
     public string Email { get; private set; }
+    public string Password { get; private set; }
     public string Cpf { get; private set; }
     public BloodTypeEnum BloodType { get; private set; }
     public Address Address { get; private set; }
@@ -56,4 +59,9 @@ public abstract class UserBase
     {
         IsDeleted = true;
     }
+
+    // public void PasswordSha256(string passwordHash)
+    // {
+    //     Password = passwordHash;
+    // }
 }

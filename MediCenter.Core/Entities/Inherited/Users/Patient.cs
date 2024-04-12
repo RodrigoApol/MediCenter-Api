@@ -13,12 +13,13 @@ public class Patient : UserBase
         string surname, 
         DateTime birthDate, 
         string phone, 
-        string email, 
+        string email,
+        string password,
         string cpf, 
         BloodTypeEnum bloodType, 
         Address address,
         double weight,
-        double height) : base(name, surname, birthDate, phone, email, cpf, bloodType, address)
+        double height) : base(name, surname, birthDate, phone, email, password, cpf, bloodType, address)
     {
         Weight = weight;
         Height = height;

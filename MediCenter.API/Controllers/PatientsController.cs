@@ -8,6 +8,7 @@ using MediCenter.Application.Queries.UsersQueries.PatientQueries.GetAllPatients;
 using MediCenter.Application.Queries.UsersQueries.PatientQueries.GetPatientByCpf;
 using MediCenter.Application.Queries.UsersQueries.PatientQueries.GetPatientById;
 using MediCenter.Application.Queries.UsersQueries.PatientQueries.GetPatientByPhone;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +16,7 @@ namespace MediCenter.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class PatientsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -24,6 +26,7 @@ public class PatientsController : ControllerBase
         _mediator = mediator;
     }
 
+    [Authorize(Policy = "Doctor")]
     [HttpGet("get-all")]
     public async Task<IActionResult> GetAll()
     {
@@ -33,7 +36,8 @@ public class PatientsController : ControllerBase
 
         return Ok(patients);
     }
-
+    
+    [Authorize(Policy = "Doctor")]
     [HttpGet("get-by-id/{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
@@ -49,6 +53,7 @@ public class PatientsController : ControllerBase
         return Ok(result.Value);
     }
     
+    [Authorize(Policy = "Doctor")]
     [HttpGet("get-by-cpf/{cpf}")]
     public async Task<IActionResult> GetByCpf(string cpf)
     {
@@ -64,6 +69,7 @@ public class PatientsController : ControllerBase
         return Ok(result.Value);
     }
     
+    [Authorize(Policy = "Doctor")]
     [HttpGet("get-by-phone/{phone}")]
     public async Task<IActionResult> GetByPhone(string phone)
     {
@@ -79,6 +85,7 @@ public class PatientsController : ControllerBase
         return Ok(result.Value);
     }
     
+    [AllowAnonymous]
     [HttpPost("create-patient")]
     public async Task<IActionResult> Post(CreatePatientCommand command)
     {
@@ -90,6 +97,7 @@ public class PatientsController : ControllerBase
             command);
     }
 
+    [Authorize(Policy = "Patient")]
     [HttpPut("update-patient")]
     public async Task<IActionResult> Put(UpdatePatientCommand command)
     {
@@ -103,6 +111,7 @@ public class PatientsController : ControllerBase
         return NoContent();
     }
 
+    [Authorize(Policy = "Patient")]
     [HttpPut("update-patient-address")]
     public async Task<IActionResult> PutAddress(UpdatePatientAddressCommand command)
     {
@@ -116,6 +125,7 @@ public class PatientsController : ControllerBase
         return NoContent();
     }
 
+    [Authorize(Policy = "Doctor")]
     [HttpDelete("delete-patient/{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {

@@ -4,6 +4,7 @@ using MediCenter.Application.Commands.ServicesCommands.ServiceCommand.DeleteServ
 using MediCenter.Application.Commands.ServicesCommands.ServiceCommand.UpdateService;
 using MediCenter.Application.Queries.ServicesQueries.ServiceQueries.GetServiceById;
 using MediCenter.Application.Queries.ServicesQueries.ServiceQuery.GetAllServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediCenter.API.Controllers;
@@ -18,7 +19,8 @@ public class ServicesController : ControllerBase
     {
         _mediator = mediator;
     }
-
+    
+    [Authorize(Policy = "Doctor, Patient")]
     [HttpGet("get-all")]
     public async Task<IActionResult> GetAll()
     {
@@ -28,7 +30,8 @@ public class ServicesController : ControllerBase
 
         return Ok(services);
     }
-
+    
+    [Authorize(Policy = "Doctor")]
     [HttpGet("get-by-id/{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
@@ -44,17 +47,19 @@ public class ServicesController : ControllerBase
         return Ok(result.Value);
     }
 
+    [Authorize(Policy = "Doctor")]
     [HttpPost("create-service")]
-    public async Task<IActionResult> Post(CreateServiceCommand commad)
+    public async Task<IActionResult> Post(CreateServiceCommand command)
     {
-        var serviceId = await _mediator.Send(commad);
+        var serviceId = await _mediator.Send(command);
 
         return CreatedAtAction(
             nameof(GetById),
             new { id = serviceId },
-            commad);
+            command);
     }
 
+    [Authorize(Policy = "Doctor")]
     [HttpPut("update-service")]
     public async Task<IActionResult> Put(UpdateServiceCommand command)
     {
@@ -66,8 +71,9 @@ public class ServicesController : ControllerBase
         }
         
         return NoContent();
-    }
-
+    }   
+    
+    [Authorize(Policy = "Doctor")]
     [HttpDelete("delete-service/{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {

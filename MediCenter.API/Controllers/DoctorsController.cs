@@ -6,6 +6,7 @@ using MediCenter.Application.Commands.UsersCommands.DoctorCommands.UpdateDoctorA
 using MediCenter.Application.Queries.UsersQueries.DoctorQueries.GetAllDoctors;
 using MediCenter.Application.Queries.UsersQueries.DoctorQueries.GetDoctorById;
 using MediCenter.Core.Entities.Inherited;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,7 @@ namespace MediCenter.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class DoctorsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -21,7 +23,8 @@ public class DoctorsController : ControllerBase
     {
         _mediator = mediator;
     }
-
+    
+    [Authorize(Policy = "Doctor")]
     [HttpGet("get-all")]
     public async Task<IActionResult> GetAll()
     {
@@ -32,6 +35,7 @@ public class DoctorsController : ControllerBase
         return Ok(doctors);
     }
 
+    [Authorize(Policy = "Doctor")]
     [HttpGet("get-by-id/{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
@@ -46,7 +50,7 @@ public class DoctorsController : ControllerBase
 
         return Ok(result.Value);
     }  
-    
+    [AllowAnonymous]
     [HttpPost("create-doctor")]
     public async Task<IActionResult> Post(CreateDoctorCommand command)
     {
@@ -57,7 +61,8 @@ public class DoctorsController : ControllerBase
             new {id = doctorId},
             command);
     }
-
+    
+    [Authorize(Policy = "Doctor")]
     [HttpPut("update-doctor")]
     public async Task<IActionResult> Put(UpdateDoctorCommand command)
     {
@@ -70,7 +75,8 @@ public class DoctorsController : ControllerBase
         
         return NoContent();
     }
-
+    
+    [Authorize(Policy = "Doctor")]
     [HttpPut("update-doctor-address")]
     public async Task<IActionResult> PutAddress(UpdateDoctorAddressCommand command)
     {
@@ -83,7 +89,8 @@ public class DoctorsController : ControllerBase
 
         return NoContent();
     }
-
+    
+    [Authorize(Policy = "Doctor")]
     [HttpDelete("delete-doctor/{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {

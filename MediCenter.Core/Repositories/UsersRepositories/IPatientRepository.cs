@@ -8,6 +8,7 @@ public interface IPatientRepository
     Task<Patient?> GetByIdAsync(Guid id);
     Task<Patient?> GetByCpfAsync(string cpf);
     Task<Patient?> GetByPhoneAsync(string phone);
+    Task<Patient?> GetByEmailAndPasswordAsync(string email, string passwordHash);
     Task AddAsync(Patient patient);
     Task SaveChangesAsync();
 }

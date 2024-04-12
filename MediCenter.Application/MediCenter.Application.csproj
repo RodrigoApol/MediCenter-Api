@@ -11,10 +11,12 @@
       <Compile Remove="Errors\**" />
       <Compile Include="Errors\Doctor\DoctorErrors.cs" />
       <Compile Include="Errors\Error.cs" />
+      <Compile Include="Errors\Login\LoginError.cs" />
       <Compile Include="Errors\MedicalService\MedicalServiceErrors.cs" />
       <Compile Include="Errors\Patient\PatientErrors.cs" />
       <Compile Include="Errors\Result.cs" />
       <Compile Include="Errors\Service\ServiceErrors.cs" />
+      <Compile Remove="Commands\UsersCommands\LoginCommands\LoginPatientCommandHandler.cs" />
     </ItemGroup>
 
     <ItemGroup>
